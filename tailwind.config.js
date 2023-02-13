@@ -9,6 +9,18 @@ module.exports = {
     extend: {
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
+        'public': ['Public Sans', 'sans-serif'],
+      },
+      colors: {
+        light: {
+          green: "#009641",
+        },
+        dark: {
+          green: "#007D36",
+        }
+      },
+      backgroundImage: {
+        banner: "url('/public/assets/public/images/banner.png')",
       }
     },
   },

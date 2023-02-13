@@ -1,0 +1,144 @@
+import React, { useState } from "react";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import NavbarModal from "./NavbarModal";
+import ActiveLink from "./ActiveLink";
+
+type Props = {};
+
+const navLinks = ["/", "About", "logo", "Services", "Contact"];
+const renderNavLinks = navLinks.map((link, index) => {
+  if (index === 0) {
+    return (
+      <ActiveLink href={link} key={index}>
+        {"Home"}
+      </ActiveLink>
+    );
+  } else if (index === 2) {
+    return (
+      <ActiveLink href={link} key={index}>
+        <div className="flex items-center justify-center">
+          <img
+            src={`/assets/icons/logo_black.svg`}
+            alt="icon"
+            className="h-36 absolute"
+          />
+        </div>
+      </ActiveLink>
+    );
+  } else {
+    return (
+      <ActiveLink href={link} key={index}>
+        {link}
+      </ActiveLink>
+    );
+  }
+});
+
+const svgVariants = {
+  opened: {
+    rotate: 0,
+    transition: {
+      duration: 0.5,
+      type: "spring",
+      stiffness: 100,
+    },
+  },
+  closed: {
+    rotate: 180,
+    transition: {
+      duration: 0.5,
+      type: "spring",
+      stiffness: 100,
+    },
+  },
+  exit: {
+    rotate: 0,
+    transition: {
+      duration: 0.5,
+      type: "spring",
+      stiffness: 100,
+    },
+  },
+};
+
+const pathVariants = {
+  opened: {},
+};
+
+const NavbarMain = ({ toggle, open, close }: any) => {
+  const [pathState, setPathState] = useState("close");
+  return (
+    <>
+      <AnimatePresence initial={false} mode="wait">
+        {toggle && <NavbarModal toggle={toggle} handleClose={close} />}
+      </AnimatePresence>{" "}
+      <nav className="w-full bg-[#fefefe]/70 relative flex items-center justify-start md:justify-center top-0 md:top-16">
+        <div className="block md:hidden px-2">
+          <AnimatePresence mode="wait">
+            <button onClick={() => (toggle ? close() : open())}>
+              {toggle ? (
+                // open bud
+                <motion.svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  imageRendering="optimizeQuality"
+                  shapeRendering="geometricPrecision"
+                  textRendering="geometricPrecision"
+                  className="h-14 aspect-square"
+                  variants={svgVariants}
+                  initial={{ rotate: 0 }}
+                  animate={pathState === "open" ? "closed" : "opened"}
+                  exit="exit"
+                  onClick={() => setPathState("close")}
+                >
+                  <motion.path
+                    stroke="#2b2a29"
+                    fill="transparent"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    d="M257 380l-1 -1 -1 1 0 -2c-13,-12 -66,-69 -67,-134 -1,-64 52,-112 67,-124l0 -2 1 1 1 -1 0 2c15,12 68,61 67,124 -1,66 -54,122 -67,134l0 2zm190 -217c15,0 27,12 27,27 0,15 -12,27 -27,27 -15,0 -27,-12 -27,-27 0,-15 12,-27 27,-27zm-120 -69c15,0 27,12 27,27 0,15 -12,27 -27,27 -15,0 -27,-12 -27,-27 0,-15 12,-27 27,-27zm-142 0c15,0 27,12 27,27 0,15 -12,27 -27,27 -15,0 -27,-12 -27,-27 0,-15 12,-27 27,-27zm-126 69c15,0 27,12 27,27 0,15 -12,27 -27,27 -15,0 -27,-12 -27,-27 0,-15 12,-27 27,-27zm148 221c-5,-1 -12,-4 -20,-7 -21,-9 -43,-23 -69,-57 -26,-34 -24,-83 -24,-83l-68 17c0,0 17,44 41,80l0 0c0,0 44,85 186,85 142,0 180,-66 194,-89l0 0c23,-35 38,-76 38,-76l-68 -17c0,0 2,49 -24,83 -26,34 -48,48 -69,57 -35,15 -82,15 -117,7zm119 -206c0,0 26,45 16,89 -10,44 -52,106 -52,106 0,0 84,-41 100,-81 16,-41 -3,-139 -3,-139l-62 25zm-142 0c0,0 -26,45 -16,89 10,44 52,106 52,106 0,0 -84,-41 -100,-81 -16,-41 3,-139 3,-139l62 25z"
+                    variants={pathVariants}
+                  />
+                </motion.svg>
+              ) : (
+                // closed bud
+                <motion.svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  imageRendering="optimizeQuality"
+                  shapeRendering="geometricPrecision"
+                  textRendering="geometricPrecision"
+                  className="h-14 aspect-square -rotate-180"
+                  variants={svgVariants}
+                  initial={{ rotate: 0 }}
+                  animate={pathState === "close" ? "opened" : "closed"}
+                  exit="exit"
+                  onClick={() => setPathState("open")}
+                >
+                  <motion.path
+                    stroke="#2b2a29"
+                    fill="transparent"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    d="M256 460c8,1 69,3 105,-25 40,-30 47,-55 47,-55l-29 -4c0,0 -6,-42 28,-83 34,-41 88,-28 88,-28 0,0 -4,-41 -41,-52 -38,-11 -74,8 -74,8 0,0 10,-56 -16,-88 -25,-32 -39,-35 -39,-35 0,0 -59,31 -69,71 -10,-40 -69,-71 -69,-71 0,0 -13,4 -39,35 -25,32 -16,88 -16,88 0,0 -36,-18 -74,-8 -38,11 -41,52 -41,52 0,0 54,-13 88,28 34,41 28,83 28,83l-29 4c0,0 7,25 47,55 37,28 97,25 105,25zm-175 -326c15,0 28,12 28,28 0,15 -12,28 -28,28 -15,0 -28,-12 -28,-28 0,-15 12,-28 28,-28zm349 0c15,0 28,12 28,28 0,15 -12,28 -28,28 -15,0 -28,-12 -28,-28 0,-15 12,-28 28,-28zm-175 -82c15,0 28,12 28,28 0,15 -12,28 -28,28 -15,0 -28,-12 -28,-28 0,-15 12,-28 28,-28z"
+                    variants={pathVariants}
+                  />
+                </motion.svg>
+              )}
+            </button>
+          </AnimatePresence>
+        </div>
+        {/* navbar for wide screens */}
+        <div className="w-4/5 hidden md:flex justify-between items-center">
+          {renderNavLinks}
+        </div>
+      </nav>
+    </>
+  );
+};
+
+export default NavbarMain;
