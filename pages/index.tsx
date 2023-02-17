@@ -1,17 +1,22 @@
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import NavbarMain from "../components/Navbar/NavbarMain";
 
-const Home: NextPage = () => {
+type Props = {};
+
+const Home: NextPage = ({}: Props) => {
   const [toggle, setToggle] = useState(false);
   const open = () => setToggle(true);
   const close = () => setToggle(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   return (
     <>
-      <div className="flex flex-col justify-center items-center font-poppins overflow-x-hidden min-h-screen w-full">
+      <div className="flex flex-col justify-center items-center font-poppins overflow-x-hidden min-h-screen w-full relative">
         {/* banner image container */}
         <div className="w-full min-h-screen relative banner-hor bg-cover flex flex-col justify-between items-center pb-10">
+          {/* <div className="h-full w-full absolute top-0 left-0 bg-pink-200 z-[2]"></div> */}
           <AnimatePresence mode="wait" initial={false}>
             <NavbarMain open={open} close={close} toggle={toggle} />
           </AnimatePresence>

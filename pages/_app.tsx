@@ -1,12 +1,14 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AnimatePresence mode="wait">
+    <>
       <Component {...pageProps} />
-    </AnimatePresence>
+    </>
   );
 }
 

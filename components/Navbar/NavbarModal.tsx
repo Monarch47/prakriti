@@ -43,18 +43,14 @@ const NavbarModal = ({ handleClose }: any) => {
   const renderNavLinksSM = navLinksSM.map((link, index) => {
     if (index === 0) {
       return (
-        <motion.div variants={childVariants}>
-          <ActiveLinkSM key={index} href={link}>
-            Home
-          </ActiveLinkSM>
+        <motion.div variants={childVariants} key={index}>
+          <ActiveLinkSM href={link}>Home</ActiveLinkSM>
         </motion.div>
       );
     } else {
       return (
-        <motion.div variants={childVariants}>
-          <ActiveLinkSM key={index} href={link}>
-            {link}
-          </ActiveLinkSM>
+        <motion.div variants={childVariants} key={index}>
+          <ActiveLinkSM href={link}>{link}</ActiveLinkSM>
         </motion.div>
       );
     }
