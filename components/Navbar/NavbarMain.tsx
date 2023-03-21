@@ -14,7 +14,14 @@ type Props = {
   setIsPlaying: (isPlaying: boolean) => void;
 };
 
-const navLinks = ["/", "About", "logo", "Services", "Contact"];
+// const navLinks = ["/", "About", "logo", "Services", "Contact"];
+const navLinks = [
+  { text: "Home", path: "/" },
+  { text: "About", path: "/About" },
+  { text: "", path: "/#" },
+  { text: "Services", path: "/Services" },
+  { text: "Contact", path: "/Contact" },
+];
 
 const flowerVariants = {
   open: {
